@@ -23,16 +23,16 @@ themeToggle.addEventListener('click', () => {
 
 generateBtn.addEventListener('click', () => {
     numbersContainer.innerHTML = '';
-    const numbers = new Set();
-    while (numbers.size < 6) {
-        const randomNumber = Math.floor(Math.random() * 45) + 1;
-        numbers.add(randomNumber);
-    }
+    const numbers = Array.from({length: 45}, (_, i) => i + 1)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 6)
+        .sort((a, b) => a - b);
 
-    for (const number of numbers) {
+    numbers.forEach((number, index) => {
         const numberDiv = document.createElement('div');
         numberDiv.classList.add('number');
         numberDiv.textContent = number;
+        numberDiv.style.animationDelay = `${index * 0.1}s`;
         numbersContainer.appendChild(numberDiv);
-    }
+    });
 });
